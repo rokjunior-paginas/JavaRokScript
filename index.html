@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Game de Maquiagem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #ffeef5;
+    }
+
+    .game-container {
+      background: white;
+      padding: 20px;
+      margin: 50px auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 5px auto;
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 5px;
+      background: #ff66a3;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ff3385;
+    }
+
+    #nextBtn {
+      margin-top: 15px;
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="game-container">
+  <h2>Qual é o item de maquiagem?</h2>
+  <img id="image" src="" alt="make">
+  <div id="options"></div>
+  <button id="nextBtn" onclick="nextQuestion()">Próximo</button>
+</div>
+
+<script>
+  const questions = [
+    {
+      img: "https://sdcdn.io/mac/br/mac_sku_NYCX45_1x1_0.png?width=1080&height=1080",
+      options: ["Batom", "Base", "Rímel"],
+      answer: "Batom"
+    },
+    {
+      img: "https://production.na01.natura.com/dw/image/v2/BFKR_PRD/on/demandware.static/-/Sites-natura-br-storefront-catalog/default/dwa7f1b872/NATBRA-58406_2.jpg?sw=300&q=80",
+      options: ["Sombra", "Pincel", "Gloss"],
+      answer: "Pincel"
+    },
+    {
+      img: "https://production.na01.natura.com/dw/image/v2/BFKR_PRD/on/demandware.static/-/Sites-natura-br-storefront-catalog/default/dw8313fa61/NATBRA-106122_2.jpg?sw=300&q=80",
+      options: ["Delineador", "Blush", "Rímel"],
+      answer: "Rímel"
+    }
+  ];
+
+  let current = 0;
+
+  function loadQuestion() {
+    const q = questions[current];
+    document.getElementById("image").src = q.img;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    q.options.forEach(option => {
+      const btn = document.createElement("button");
+      btn.innerText = option;
+      btn.onclick = () => checkAnswer(option);
+      optionsDiv.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(selected) {
+    if (selected === questions[current].answer) {
+      alert("Correto! 🎉");
+    } else {
+      alert("Errado! 😢");
+    }
+  }
+
+  function nextQuestion() {
+    current++;
+    if (current < questions.length) {
+      loadQuestion();
+    } else {
+      alert("Fim do jogo!");
+      current = 0;
+      loadQuestion();
+    }
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
